@@ -1,19 +1,18 @@
 # -*- coding:utf-8 -*-
 
 import sys
-from steem.comment import SteemComment
 from action.vote.recipe import VoteRecipe
 from utils.logging.logger import logger
 
 # app specific parameter
-TRIBE_TAG = "cn"
 RESTEEM_ACCOUNT = "rivalhw"
 # voter configuration
-VOTER_ACCOUNT = "cn-reader"
-VOTE_TIMING = 5 # mins
-VOTE_CYCLE = 1.05 # 1.05 # days
-VOTE_PERCENTAGE = 1
-VOTE_PER_ACCOUNT_LIMIT = 2
+VOTER_ACCOUNT = "rivalhw"
+VOTER_ACCOUNT2 = "cn-reader"
+VOTE_TIMING = 1 # mins
+CURATION_CYCLE = 1.01 # days
+VOTE_PERCENTAGE = 1.0 # x% of daily 20% vote percentage
+
 
 class CnReaderVoter(VoteRecipe):
 
@@ -24,18 +23,23 @@ class CnReaderVoter(VoteRecipe):
         self.voted_posts = 0
 
     def mode(self):
-        return "query.resteem"
+        return "query.comment.post"
 
     def config(self):
         return {
-            "account": RESTEEM_ACCOUNT
+            "account": RESTEEM_ACCOUNT,
+            "days": CURATION_CYCLE,
+            "reblog": True
         }
 
     def by(self):
         return VOTER_ACCOUNT
 
     def what_to_vote(self, ops):
-        self.posts_num += 1
+        if not self.ops.is_upvoted_by(self.by()):
+            logger.info("We will vote the post {}".format(self.ops.get_url()))
+            self.posts_num += 1
+            return True
         return False
 
     def who_to_vote(self, author):
@@ -47,9 +51,17 @@ class CnReaderVoter(VoteRecipe):
     def how_to_vote(self, post):
         self.voted_posts += 1
         logger.info("voting {} / {} posts".format(self.voted_posts, self.posts_num))
-        return self.voter.estimate_vote_pct_for_n_votes(days=VOTE_CYCLE, n=self.posts_num) * VOTE_PERCENTAGE
+        weight = self.voter.estimate_vote_pct_for_n_votes(days=CURATION_CYCLE, n=self.posts_num) * VOTE_PERCENTAGE
+        if weight  > 100:
+            weight = 100
+        return weight
 
     def after_success(self, res):
         if self.voted_posts == self.posts_num:
             logger.info("Done with voting. Exit.")
             sys.exit()
+
+class CnReaderVoter2(CnReaderVoter):
+
+    def by(self):
+        return VOTER_ACCOUNT2

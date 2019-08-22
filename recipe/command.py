@@ -6,6 +6,7 @@ from steem.settings import settings
 from utils.logging.logger import logger
 
 from recipe.vote.cookbook import VoteCookbook
+from recipe.info.cookbook import InfoCookbook
 
 
 @task(help={
