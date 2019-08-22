@@ -1,6 +1,7 @@
 # -*- coding:utf-8 -*-
 
 import sys
+from steem.account import SteemAccount
 from action.vote.recipe import VoteRecipe
 from utils.logging.logger import logger
 
@@ -21,6 +22,8 @@ class CnReaderVoter(VoteRecipe):
         # self.authors = {}
         self.posts_num = 0
         self.voted_posts = 0
+        self.curator = SteemAccount(self.by())
+        self.followings = self.curator.get_followings()
 
     def mode(self):
         return "query.comment.post"
@@ -43,6 +46,10 @@ class CnReaderVoter(VoteRecipe):
         return False
 
     def who_to_vote(self, author):
+        if not author in self.followings:
+            self.curator.follow(author)
+            logger.info("follow the new author @{}".format(author))
+            self.followings.append(author)
         return True
 
     def when_to_vote(self, ops):

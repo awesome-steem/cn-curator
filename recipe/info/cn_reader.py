@@ -54,6 +54,8 @@ class CnReaderSummary(InfoRecipe):
         return "好文天天赞{}榜上有名".format(get_zh_time_str())
 
     def body(self, data):
+        # reverse the post orders
+        data.reverse()
         date = get_zh_time_str()
         count = len(data)
         head = ["作者", "文章"]
