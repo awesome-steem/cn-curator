@@ -13,6 +13,7 @@ VOTER_ACCOUNT2 = "cn-reader"
 VOTE_TIMING = 1 # mins
 CURATION_CYCLE = 1.01 # days
 VOTE_PERCENTAGE = 1.0 # x% of daily 20% vote percentage
+UPVOTE_LIMIT = 50 # %
 
 
 class CnReaderVoter(VoteRecipe):
@@ -59,8 +60,8 @@ class CnReaderVoter(VoteRecipe):
         self.voted_posts += 1
         logger.info("voting {} / {} posts".format(self.voted_posts, self.posts_num))
         weight = self.voter.estimate_vote_pct_for_n_votes(days=CURATION_CYCLE, n=self.posts_num) * VOTE_PERCENTAGE
-        if weight  > 100:
-            weight = 100
+        if weight  > UPVOTE_LIMIT:
+            weight = UPVOTE_LIMIT
         return weight
 
     def after_success(self, res):
