@@ -26,10 +26,13 @@ def get_cn_time_str():
 
     return str_time, timestamp
 
-def get_zh_time_str():
+def get_zh_time_str(days=None):
     # get timezone
     tz = pytz.timezone(pytz.country_timezones('cn')[0])
-    return datetime.now(tz).strftime('%Y年%m月%d日')  # '%Y-%m-%d_(%H_%M_%S)'
+    t = datetime.now(tz)
+    if days is not None:
+        t = t + timedelta(days=days)
+    return t.strftime('%Y年%m月%d日')  # '%Y-%m-%d_(%H_%M_%S)'
 
 def get_utc_date_str():
     # get timezone

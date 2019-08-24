@@ -1,7 +1,13 @@
 # -*- coding:utf-8 -*-
 
+import traceback
+from bs4 import BeautifulSoup
+from markdown import markdown
+
 from action.info.recipe import InfoRecipe
 from action.info.message import build_table
+from steem.comment import SteemComment
+from steem.collector import get_posts
 from utils.system.date import get_zh_time_str
 from utils.logging.logger import logger
 
@@ -50,8 +56,16 @@ class CnReaderSummary(InfoRecipe):
     def by(self):
         return INFO_ACCOUNT
 
-    def title(self, data):
-        return "好文天天赞{}榜上有名".format(get_zh_time_str())
+    def data(self):
+        data = super().data()
+        # exclude the posts in yesterday's summary
+        yesterday_posts = self.get_yesterday_posts()
+        yesterday_authorperms = [SteemComment(url=url).get_author_perm() for url in yesterday_posts]
+        data = [d for d in data if not d['authorperm'] in yesterday_authorperms]
+        return data
+
+    def title(self, data, days=None):
+        return "好文天天赞{}榜上有名".format(get_zh_time_str(days))
 
     def body(self, data):
         # reverse the post orders
@@ -78,3 +92,18 @@ class CnReaderSummary(InfoRecipe):
 
     def get_url(self, authorperm):
         return APP_URL + "/" + authorperm
+
+    def get_yesterday_posts(self):
+        title = self.title(data=None, days=-1)
+        posts = get_posts(account=RESTEEM_ACCOUNT, days=2)
+        yesterday_summary_posts = [p for p in posts if p.title == title]
+        if yesterday_summary_posts and len(yesterday_summary_posts) > 0:
+            yesterday_summary_post = yesterday_summary_posts[0]
+            try:
+                html = markdown(yesterday_summary_post.body)
+                soup = BeautifulSoup(html, 'lxml')
+                tags = soup.select("tbody tr td a")
+                return [t["href"] for t in tags]
+            except:
+                logger.info("Failed when parsing posts, with error: {}".format(traceback.format_exc()))
+        return []
