@@ -49,6 +49,9 @@ class InfoRecipe:
     def ready(self, data):
         return True
 
+    def self_vote(self):
+        return False
+
     # def when_to_post(self, post):
     #     return 0
 
@@ -60,4 +63,4 @@ class InfoRecipe:
     #     logger.debug("watch operation: {}; tags: {}".format(self.ops.get_url(), self.ops.get_tags()))
 
     def run(self):
-        self.bot.get_data(self.data).get_title(self.title).get_body(self.body).get_tags(self.tags).is_ready(self.ready).run()
+        self.bot.get_data(self.data).get_title(self.title).get_body(self.body).get_tags(self.tags).is_ready(self.ready).is_self_vote(self.self_vote).run()

@@ -35,6 +35,7 @@ class InfoBot:
         self.body = lambda : None
         self.tags = lambda: None
         self.ready = lambda: True
+        self.self_vote = lambda: False
 
     def _has_reply_comment(self, receiver, message_id):
         comments = self._read_comments()
@@ -97,7 +98,8 @@ class InfoBot:
     def publish(self, title, body, tags):
         """ publish the post """
         if not self._has_published(title):
-            self.writer.post(title, body, tags)
+            self_vote = self.self_vote() or False
+            self.writer.post(title, body, tags, self_vote=self_vote)
             logger.info("I have published the post [{}] successfully".format(title))
             return True
         else:
@@ -132,6 +134,10 @@ class InfoBot:
 
     def is_ready(self, ready):
         self.ready = ready
+        return self
+
+    def is_self_vote(self, self_vote):
+        self.self_vote = self_vote
         return self
 
     def run(self):
