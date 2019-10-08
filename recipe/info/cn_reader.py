@@ -84,7 +84,7 @@ class CnReaderSummary(InfoRecipe):
         return POST_TEMPLATE.format(date=date, count=count, table=table)
 
     def tags(self, data):
-        return ["cn-reader", "cn", "partiko", "zzan"]
+        return ["cn-reader", "cn", "partiko", "zzan", "life"]
 
     def ready(self, data):
         # post only there're more than 0 resteemed posts
