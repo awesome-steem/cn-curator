@@ -13,7 +13,7 @@ VOTER_ACCOUNT2 = "cn-reader"
 VOTE_TIMING = 1 # mins
 CURATION_CYCLE = 1.01 # days
 VOTE_PERCENTAGE = 1.0 # x% of daily 20% vote percentage
-UPVOTE_LIMIT = 20 # %
+UPVOTE_LIMIT = 50 # %
 
 
 class CnReaderVoter(VoteRecipe):

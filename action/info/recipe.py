@@ -24,7 +24,7 @@ class InfoRecipe:
     def vp_limit(self):
         return {}
 
-    def data(self):
+    def data(self, retries=3):
         mode = self.mode()
         config = self.config()
         if mode.startswith("query."):
@@ -34,7 +34,11 @@ class InfoRecipe:
                 config['mode'] = "comment"
             elif mode == "query.comment.all":
                 config['mode'] = "post+comment"
-            return query(config)
+            d = query(config)
+            if (d is None or len(d) == 0) and retries > 0:
+                return InfoRecipe.data(self, retries-1)
+            else:
+                return d
         return []
 
     def title(self, data):
