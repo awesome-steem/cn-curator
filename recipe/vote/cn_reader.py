@@ -64,9 +64,6 @@ class CnReaderVoter(VoteRecipe):
             weight = UPVOTE_LIMIT
         return weight
 
-    def self_vote(self):
-        return True
-
     def after_success(self, res):
         if self.voted_posts == self.posts_num:
             logger.info("Done with voting. Exit.")

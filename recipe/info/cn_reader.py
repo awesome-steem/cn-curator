@@ -90,11 +90,14 @@ class CnReaderSummary(InfoRecipe):
         # post only there're more than 0 resteemed posts
         return data and len(data) > 0
 
+    def self_vote(self):
+        return True
+
     def get_url(self, authorperm):
         return APP_URL + "/" + authorperm
 
     def get_yesterday_posts(self):
-        title = self.title(data=None, days=-1)
+        title = self.title(data=None, days=-2) # fix the date string error
         posts = get_posts(account=RESTEEM_ACCOUNT, days=2)
         yesterday_summary_posts = [p for p in posts if p.title == title]
         if yesterday_summary_posts and len(yesterday_summary_posts) > 0:
