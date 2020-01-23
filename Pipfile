@@ -1,6 +1,6 @@
 [[source]]
 name = "pypi.ustc"
-url = "https://pypi.mirrors.ustc.edu.cn/simple"
+url = "https://pypi.python.org/simple"
 verify_ssl = true
 
 [dev-packages]
@@ -8,7 +8,7 @@ verify_ssl = true
 [packages]
 pandas = "*"
 invoke = "*"
-beem = "*"
+beem = "~=0.20.22"
 bs4 = "*"
 markdown = "*"
 unicodecsv = "*"
@@ -21,6 +21,7 @@ dnspython = "*"
 langdetect = "*"
 matplotlib = "*"
 steemengine = "*"
+ecdsa = "~=0.13.2"
 
 [requires]
 python_version = "3.7"
