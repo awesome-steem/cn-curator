@@ -14,7 +14,7 @@ from utils.logging.logger import logger
 
 # app specific parameter
 RESTEEM_ACCOUNT = "rivalhw"
-APP_URL = "https://busy.org"
+APP_URL = ""
 # post configuration
 INFO_ACCOUNT = "rivalhw"
 CURATION_CYCLE = 1.01 # days
