@@ -120,7 +120,9 @@ class VoteBot:
                 time.sleep(1)
             logger.info("Vote Queue Stopped.")
 
-        Thread(target=wait_for_vote).start()
+        t = Thread(target=wait_for_vote)
+        t.setDaemon(True)
+        t.start()
 
     def append_to_vote_queue(self, post):
         self._vote_queue.append(post)
@@ -201,3 +203,4 @@ class VoteBot:
                 self.config['mode'] = "post+comment"
             for c in query(self.config):
                 self.watch(c)
+
