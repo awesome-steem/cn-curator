@@ -19,7 +19,7 @@ APP_URL = ""
 INFO_ACCOUNT = "rivalhw"
 CURATION_CYCLE = 1.01 # days
 POST_TEMPLATE = """
-steemit中文社区好文天天赞，{date}文章推荐，选出了如下共计**{count}篇**文章：
+中文社区好文天天赞，{date}文章推荐，选出了如下共计**{count}篇**文章：
 
 {table}
 
@@ -84,7 +84,7 @@ class CnReaderSummary(InfoRecipe):
         return POST_TEMPLATE.format(date=date, count=count, table=table)
 
     def tags(self, data):
-        return ["cn-reader", "cn", "partiko", "zzan", "life"]
+        return ["cn-reader", "cn", "life", "blog", "zzan"]
 
     def ready(self, data):
         # post only there're more than 0 resteemed posts
