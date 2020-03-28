@@ -7,6 +7,7 @@ install:
 
 script:
   - bash scripts/_execute.sh
+  - bash scripts/_execute2.sh
 
 branches:
   only:
