@@ -121,7 +121,7 @@ class VoteBot:
             logger.info("Vote Queue Stopped.")
 
         t = Thread(target=wait_for_vote)
-        t.setDaemon(True)
+        # t.setDaemon(True)
         t.start()
 
     def append_to_vote_queue(self, post):
