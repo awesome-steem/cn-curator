@@ -32,11 +32,11 @@ POST_TEMPLATE = """
 
 想参加每日好文点赞推荐活动的话，不妨可以看下如下相关文章：
 
-《[寻找steemit平台上那些认真写作的优秀者](https://steemit.com/cn-reader/@rivalhw/scmuv-steemit)》
+《[寻找steemit平台上那些认真写作的优秀者](/cn-reader/@rivalhw/scmuv-steemit)》
 
-《[写在后边的话-寻找steemit平台上那些认真写作的优秀者](https://steemit.com/cn-reader/@rivalhw/2cqqm9-steemit)》
+《[写在后边的话-寻找steemit平台上那些认真写作的优秀者](/cn-reader/@rivalhw/2cqqm9-steemit)》
 
-《[好文天天赞活动问题答疑](https://steemit.com/sct/@rivalhw/100-1559571827)》
+《[好文天天赞活动问题答疑](/sct/@rivalhw/100-1559571827)》
 
 """
 
