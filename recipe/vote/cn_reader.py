@@ -6,7 +6,7 @@ from action.vote.recipe import VoteRecipe
 from utils.logging.logger import logger
 
 # app specific parameter
-RESTEEM_ACCOUNT = "rivalhw"
+RESTEEM_ACCOUNT = "cn-reader"
 # voter configuration
 VOTER_ACCOUNT = "rivalhw"
 VOTER_ACCOUNT2 = "cn-reader"

@@ -13,7 +13,7 @@ from utils.logging.logger import logger
 
 
 # app specific parameter
-RESTEEM_ACCOUNT = "rivalhw"
+RESTEEM_ACCOUNT = "cn-reader"
 APP_URL = ""
 # post configuration
 INFO_ACCOUNT = "rivalhw"
